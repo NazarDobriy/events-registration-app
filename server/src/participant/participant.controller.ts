@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Param,
+  ParseIntPipe
+} from '@nestjs/common';
 
 import { ParticipantDto } from './dto/participant.dto';
 import { ParticipantService } from './participant.service';
@@ -11,5 +18,12 @@ export class ParticipantController {
   @Post()
   create(@Body() dto: ParticipantDto): Promise<Participant> {
     return this.participantService.create(dto);
+  }
+
+  @Get('events/:id')
+  getParticipantsByEventId(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Participant[]> {
+    return this.participantService.getParticipantsByEventId(id);
   }
 }
