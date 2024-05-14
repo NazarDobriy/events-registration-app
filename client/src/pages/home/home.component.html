@@ -1,0 +1,15 @@
+<main class="p-11">
+  <h3 class="text-2xl">Events</h3>
+
+  <app-center-wrapper *ngIf="isLoading; else content">
+    <app-loader></app-loader>
+  </app-center-wrapper>
+
+  <ng-template #content>
+    <section class="flex justify-center items-center flex-wrap pt-8 gap-11">
+      <ng-container *ngFor="let event of events">
+        <app-event-card [event]="event"></app-event-card>
+      </ng-container>
+    </section>
+  </ng-template>
+</main>
