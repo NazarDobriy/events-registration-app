@@ -15,4 +15,9 @@ export class EventService {
     });
     return events;
   }
+
+  async getEventById(id: number): Promise<Event> {
+    const event = await this.eventRepository.findByPk(id);
+    return event;
+  }
 }
