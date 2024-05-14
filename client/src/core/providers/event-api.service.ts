@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { IEvent } from 'src/pages/home/types/event.interface';
+import { IEvent } from 'src/types/event.interface';
 
 @Injectable()
 export class EventApiService {
