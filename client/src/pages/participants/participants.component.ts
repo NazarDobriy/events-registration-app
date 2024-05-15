@@ -8,14 +8,14 @@ import { IParticipant } from 'src/types/participant.interface';
 
 @Component({
   selector: 'app-participants',
-  templateUrl: './participants.component.html',
+  templateUrl: './participants.component.html'
 })
 export class ParticipantsComponent implements OnInit, OnDestroy {
   eventTitle = '';
   isLoadingEvent = true;
   isLoadingParticipants = true;
   participants: IParticipant[] = [];
-  private eventId = 0;
+  private eventId: number | null = null;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -31,23 +31,27 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
   }
 
   private fetchParticipants(): void {
-    this.participantApiService
-      .getParticipantsByEventId(this.eventId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((participants) => {
-        this.participants = participants;
-        this.isLoadingParticipants = false;
-      });
+    if (this.eventId) {
+      this.participantApiService
+        .getParticipantsByEventId(this.eventId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((participants) => {
+          this.participants = participants;
+          this.isLoadingParticipants = false;
+        });
+    }
   }
 
   private fetchEvent(): void {
-    this.eventApiService
-      .getEventById(this.eventId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(({ title }) => {
-        this.eventTitle = title;
-        this.isLoadingEvent = false;
-      });
+    if (this.eventId) {
+      this.eventApiService
+        .getEventById(this.eventId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(({ title }) => {
+          this.eventTitle = title;
+          this.isLoadingEvent = false;
+        });
+    }
   }
 
   ngOnDestroy(): void {
