@@ -11,13 +11,14 @@ export class RegisterParticipantFormComponent {
   today = new Date();
   formGroup: FormGroup;
   options = ['Social media', 'Friends', 'Found myself'];
+  emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   @Output() submitSelect = new EventEmitter<IParticipant>();
 
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(this.emailRegExp)]],
       birthDate: ['', Validators.required],
       referralSource: ['myself', Validators.required]
     });
