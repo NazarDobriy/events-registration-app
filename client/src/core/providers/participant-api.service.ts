@@ -11,6 +11,10 @@ export class ParticipantApiService {
 
   constructor(private http: HttpClient) {}
 
+  createParticipant(participant: IParticipant): Observable<IParticipant> {
+    return this.http.post<IParticipant>(this.url, { ...participant });
+  }
+
   getParticipantsByEventId(id: number): Observable<IParticipant[]> {
     return this.http.get<IParticipant[]>(`${this.url}/events/${id}`);
   }
