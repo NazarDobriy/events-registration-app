@@ -1,8 +1,8 @@
 export interface IParticipant {
-  id: number;
+  id?: number;
   name: string;
   email: string;
   birthDate: Date;
   referralSource: string;
-  eventId: number;
+  eventId?: number;
 }
