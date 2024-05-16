@@ -14,4 +14,11 @@ export class ParticipantService {
     const participant = await this.participantRepository.create(dto);
     return participant;
   }
+
+  async getParticipantsByEventId(id: number): Promise<Participant[]> {
+    const participant = await this.participantRepository.findAll({
+      where: { eventId: id }
+    });
+    return participant;
+  }
 }

@@ -10,8 +10,14 @@ export class EventService {
 
   async getAll(): Promise<Event[]> {
     const events = await this.eventRepository.findAll({
-      include: [Participant]
+      include: [Participant],
+      order: [['id', 'ASC']]
     });
     return events;
+  }
+
+  async getEventById(id: number): Promise<Event> {
+    const event = await this.eventRepository.findByPk(id);
+    return event;
   }
 }
