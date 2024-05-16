@@ -1,20 +1,33 @@
 <form
-  class="flex flex-col justify-center items-start w-[600px] border-2 border-gray-500 p-14"
+  class="
+    flex
+    flex-col
+    justify-center
+    items-center
+    md:items-start
+    w-[430px]
+    sm:w-[500px]
+    md:w-[600px]
+    border-2
+    border-gray-500
+    p-10
+    sm:p-14
+  "
   [formGroup]="formGroup"
 >
   <h3 class="text-2xl pb-6">Event registration</h3>
 
-  <mat-form-field class="w-72">
+  <mat-form-field class="w-full md:w-72">
     <mat-label>Full name</mat-label>
     <input matInput formControlName="name" type="text" />
   </mat-form-field>
 
-  <mat-form-field class="w-72">
+  <mat-form-field class="w-full md:w-72">
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" type="email" />
   </mat-form-field>
 
-  <mat-form-field class="w-72">
+  <mat-form-field class="w-full md:w-72">
     <mat-label>Date of birth</mat-label>
     <input
       matInput
@@ -27,7 +40,10 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-radio-group class="flex gap-6 py-6" formControlName="referralSource">
+  <mat-radio-group
+    class="flex gap-3 md:gap-6 py-6 flex-col sm:flex-row"
+    formControlName="referralSource"
+  >
     <mat-radio-button color="primary" value="social media">Social media</mat-radio-button>
     <mat-radio-button color="primary" value="friends">Friends</mat-radio-button>
     <mat-radio-button color="primary" value="myself">Found myself</mat-radio-button>
