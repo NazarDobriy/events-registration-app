@@ -1,5 +1,16 @@
 <main class="p-11">
-  <h3 class="text-2xl">Events</h3>
+  <section class="flex justify-between items-center flex-col gap-8 sm:gap-0 sm:flex-row">
+    <h3 class="text-2xl">Events</h3>
+
+    <mat-form-field class="-mb-5">
+      <mat-label>Sort events by</mat-label>
+      <mat-select (selectionChange)="handleSort($event)">
+        <mat-option value="title">Title</mat-option>
+        <mat-option value="date">Event date</mat-option>
+        <mat-option value="organizer">Organizer</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
 
   <app-center-wrapper *ngIf="isLoading; else content">
     <app-loader></app-loader>
