@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { EventApiService } from 'src/core/providers/event-api.service';
 
 import { ParticipantApiService } from 'src/core/providers/participant-api.service';
+import { EventApiService } from 'src/core/providers/event-api.service';
 import { IParticipant } from 'src/types/participant.interface';
 
 @Component({
@@ -12,9 +13,11 @@ import { IParticipant } from 'src/types/participant.interface';
 })
 export class ParticipantsComponent implements OnInit, OnDestroy {
   eventTitle = '';
+  inputValue = '';
   isLoadingEvent = true;
   isLoadingParticipants = true;
   participants: IParticipant[] = [];
+  optionCtrl = new FormControl<'name' | 'email'>('name');
   private eventId: number | null = null;
   private destroy$ = new Subject<void>();
 
