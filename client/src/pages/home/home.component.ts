@@ -12,12 +12,22 @@ import { EventApiService } from 'src/core/providers/event-api.service';
 export class HomeComponent implements OnInit, OnDestroy {
   isLoading = true;
   events: IEvent[] = [];
+  currentPage = 1;
+  private totalItems = 0;
+  private readonly limit = 7;
   private destroy$ = new Subject<void>();
 
   constructor(private eventApiService: EventApiService) {}
 
   ngOnInit(): void {
-    this.fetchEvents();
+    this.loadEvents();
+  }
+
+  onScroll(): void {
+    if (this.events.length < this.totalItems) {
+      this.currentPage++;
+      this.loadEvents();
+    }
   }
 
   handleSort(option: MatSelectChange): void {
@@ -27,7 +37,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         break;
       case 'date':
         this.events.sort((a, b) => {
-          return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime();
+          return (
+            new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
+          );
         });
         break;
       case 'organizer':
@@ -38,12 +50,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private fetchEvents(): void {
+  private loadEvents(): void {
     this.eventApiService
-      .getEvents()
+      .getPaginatedEvents(this.currentPage, this.limit)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((events) => {
-        this.events = events;
+      .subscribe((response) => {
+        this.events.push(...response.events);
+        this.totalItems = response.totalItems;
         this.isLoading = false;
       });
   }
