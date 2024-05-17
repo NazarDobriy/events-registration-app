@@ -16,6 +16,23 @@ export class EventService {
     return events;
   }
 
+  async getPaginatedEvents(
+    page: number = 1,
+    limit: number = 7
+  ): Promise<{ events: Event[]; totalItems: number }> {
+    const offset = (page - 1) * limit;
+
+    const [events, totalItems] = await Promise.all([
+      this.eventRepository.findAll({
+        limit,
+        offset
+      }),
+      this.eventRepository.count()
+    ]);
+
+    return { events, totalItems };
+  }
+
   async getEventById(id: number): Promise<Event> {
     const event = await this.eventRepository.findByPk(id);
     return event;
