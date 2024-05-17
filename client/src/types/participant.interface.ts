@@ -4,5 +4,6 @@ export interface IParticipant {
   email: string;
   birthDate: Date;
   referralSource: string;
+  createdAt?: string;
   eventId?: number;
 }

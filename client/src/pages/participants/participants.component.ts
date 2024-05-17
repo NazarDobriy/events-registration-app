@@ -6,6 +6,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ParticipantApiService } from 'src/core/providers/participant-api.service';
 import { EventApiService } from 'src/core/providers/event-api.service';
 import { IParticipant } from 'src/types/participant.interface';
+import { countRegistrationsPerDay } from './utils';
 
 @Component({
   selector: 'app-participants',
@@ -16,6 +17,8 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
   inputValue = '';
   isLoadingEvent = true;
   isLoadingParticipants = true;
+  days: string[] = [];
+  registrations: number[] = [];
   participants: IParticipant[] = [];
   optionCtrl = new FormControl<'name' | 'email'>('name');
   private eventId: number | null = null;
@@ -40,6 +43,7 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe((participants) => {
           this.participants = participants;
+          this.handleRegistrationData();
           this.isLoadingParticipants = false;
         });
     }
@@ -55,6 +59,12 @@ export class ParticipantsComponent implements OnInit, OnDestroy {
           this.isLoadingEvent = false;
         });
     }
+  }
+
+  private handleRegistrationData(): void {
+    const registrationData = countRegistrationsPerDay(this.participants);
+    this.days = Object.keys(registrationData);
+    this.registrations = Object.values(registrationData);
   }
 
   ngOnDestroy(): void {

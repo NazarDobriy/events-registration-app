@@ -6,6 +6,7 @@ import { ParticipantsComponent } from '../participants/participants.component';
 import { ParticipantCardComponent } from './components/participant-card/participant-card.component';
 import { SharedModule } from 'src/shared/shared.module';
 import { SearchParticipantsPipe } from './pipes/search-participants.pipe';
+import { ParticipantsBarChartComponent } from './components/participants-bar-chart/participants-bar-chart.component';
 
 const routes: Routes = [{ path: '', component: ParticipantsComponent }];
 
@@ -13,7 +14,8 @@ const routes: Routes = [{ path: '', component: ParticipantsComponent }];
   declarations: [
     ParticipantsComponent,
     ParticipantCardComponent,
-    SearchParticipantsPipe
+    SearchParticipantsPipe,
+    ParticipantsBarChartComponent
   ],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)]
 })
