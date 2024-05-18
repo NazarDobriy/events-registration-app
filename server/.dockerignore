@@ -6,7 +6,6 @@ node_modules
 coverage
 .env
 .editorconfig
-Dockerfile
 README.md
 .eslintrc.js
 .vscode
