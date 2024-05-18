@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiHost: 'http://localhost:5000/api'
+  apiHost: 'https://events-registration-app-production.up.railway.app/api'
 };
